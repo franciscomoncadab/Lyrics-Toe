@@ -20,14 +20,19 @@ const UserSchema = new mongoose.Schema({
           unique: true,
      },
 
-     confirm: {
-          type: 'boolean',
-          default: false,
+     token: {
+          type: String,
      },
 
-     timestamp: true,
-
-});
+     confirm: {
+          type: Boolean,
+          default: false,
+     },
+},
+      {
+        timestamps: true,
+      }
+);
 
 const User = mongoose.model('User', UserSchema)
 

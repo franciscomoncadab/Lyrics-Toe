@@ -4,7 +4,7 @@ import connectDB from './config/db.js'
 import userRouter from './routes/userRoutes.js'
 
 const app = express();
-
+app.use(express.json())
 dotenv.config();
 
 connectDB();
