@@ -1,4 +1,5 @@
 import User from '../models/User.js'
+import generateId from '../helpers/generarId.js'
 
 const registerUser = async (req, res) => {
      const { email } = req.body
@@ -10,8 +11,9 @@ const registerUser = async (req, res) => {
      }
      try {
           const user = new User(req.body)
-          const userId = await user.save()
-          res.json(userId)
+          user.token = generateId();
+          const saveUser = await user.save()
+          res.json(saveUser)
      } catch (err) {
           console.log({err: err.message})
 
@@ -19,6 +21,12 @@ const registerUser = async (req, res) => {
      
 };
 
+const authLoginUser = async (req, res) => {
+
+     
+}
+
 export {
-     registerUser,    
+     registerUser,
+     authLoginUser,    
 }    
