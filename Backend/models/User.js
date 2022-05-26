@@ -36,12 +36,16 @@ const UserSchema = new mongoose.Schema({
 );
 
 UserSchema.pre('save', async function(next) {
-     if(this.isModified('password')) {
+     if(!this.isModified('password')) {
           next();
      }
      const salt = await bcrypt.genSalt(10);
      this.password = await bcrypt.hash(this.password, salt);
 })
+
+UserSchema.methods.passwordIsCorrect = async function (userPassword) {
+     return await bcrypt.compare(userPassword, this.password);
+}
 
 const User = mongoose.model('User', UserSchema)
 
